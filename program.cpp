@@ -15,6 +15,27 @@ void draw_rectangle(BMP &bmp,int x, int y, int l, int h, int b, color c ){
         }
     }
 }
+void draw_rectangle_gradient(BMP &bmp, int x, int y, int l, int h, color c1, color c2)
+{
+
+    if(l <= 0 || h <= 0);
+    color diff(c1.r - c2.r, c1.g - c2.g, c1.b - c2.b);
+    //int change_r = h /diff.r;
+    //int change_g = h /diff.g;
+    //int change_b = h /diff.b;
+    
+    
+    for(int i=0; i<=h; i++){
+        for(int ii= 0; ii<=l; i++)
+        {
+            bmp.set_pixel(x + ii, y + i, )
+        }
+    }
+
+
+
+
+}
 
 int main() {
     
