@@ -69,8 +69,16 @@ void draw_line(BMP &bmp , Point p1, Point p2)
         {
             x_count++;
             bmp.set_pixel(x_count, y_count, 0, 0, 0);
+            err = (abs_dx + x_count) - abs_dy;
         }
-        if()       
+        if(err  < abs_dx)
+        {
+            y_count = ((y_count) + 1)* direction;
+            bmp.set_pixel(x_count, y_count, 0, 0, 0);
+            //abs_dy = abs(y_count - p2.y);
+            err = abs_dx - (abs_dy + y_count);
+        } 
+        if(x_count == p2.x && y_count == p2.y ) break;      
     }
     
 
