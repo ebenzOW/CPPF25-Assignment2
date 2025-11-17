@@ -76,7 +76,6 @@ void draw_line(BMP &bmp , Point p1, Point p2)
         {
             y_count += y_step;
             bmp.set_pixel(x_count, y_count, 0, 0, 0);
-            //abs_dy = abs(y_count - p2.y);
             err = err + abs_dx;
         } 
         if(x_count == p2.x && y_count == p2.y ) break;      
