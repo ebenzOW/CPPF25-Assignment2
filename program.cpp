@@ -32,7 +32,7 @@ void draw_rectangle_gradient(BMP &bmp, int startX, int startY, int l, int h, col
 
 void draw_line(BMP &bmp , Point p1, Point p2)
 {
-    #if 0
+    /* Naive approach
     float slope = (p2.y - p1.y)/(p2.x - p1.x);
     float intercept = p1.y - slope*(p1.x);
     float y;
@@ -44,17 +44,18 @@ void draw_line(BMP &bmp , Point p1, Point p2)
         bmp.set_pixel(x, int(round(y)), 0, 0, 0);
     }
     #endif
-
-    bool p2_isTerminal = true;
+    */
 
     int abs_dx = abs(p1.x - p2.x);
     int abs_dy = abs(p1.y - p2.y);
 
-    int direction =1; 
-    float slope = (p2.y - p1. y)/(p2.x - p1.x);
-    if(slope < 0) direction = -1;
+    int x_step = 1;
+    int y_step = 1;
 
-    if(p2.x < p1.x) p2_isTerminal = false;
+
+
+    if(p2.x < p1.x) x_step = -1;
+    if(p2.y < p1.y) y_step = -1;
 
     int err = abs_dx - abs_dy;
 
@@ -64,19 +65,19 @@ void draw_line(BMP &bmp , Point p1, Point p2)
 
     while(true)
     {
-        err *= 2; 
-        if (err >  (abs_dy*(-1)) )
+        
+        if (2* err >  (abs_dy*(-1)) )
         {
-            x_count++;
+            x_count += x_step;
             bmp.set_pixel(x_count, y_count, 0, 0, 0);
-            err = (abs_dx + x_count) - abs_dy;
+            err = err - abs_dy;
         }
-        if(err  < abs_dx)
+        if(2 * err  < abs_dx)
         {
-            y_count = ((y_count) + 1)* direction;
+            y_count += y_step;
             bmp.set_pixel(x_count, y_count, 0, 0, 0);
             //abs_dy = abs(y_count - p2.y);
-            err = abs_dx - (abs_dy + y_count);
+            err = err + abs_dx;
         } 
         if(x_count == p2.x && y_count == p2.y ) break;      
     }
@@ -89,14 +90,10 @@ int main() {
     BMP bmp(500, 500); 
     
     draw_rectangle_gradient(bmp,1,1,500,500, color{255,0,0}, color{0,0,255});
-    draw_line(bmp, Point{5, 5}, Point{100,100});
+    draw_line(bmp, Point{5, 5}, Point{275,400});
   
     bmp.write("epic_gradient.bmp"); // Save the image to a file
 
     return 0;
 }
 
-
-//triangle
-//line formula using slope
-//(y = mx + b)
